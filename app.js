@@ -3,9 +3,10 @@ const app = express();
 app.use(express.static('public'));
 const fs = require('fs');
 const path = require('path');
-app.get('/video', (req, res) => {
+app.get('/video/:quality', (req, res) => {
+const quality = req.params.quality;    
 // Get the video’s actual location and size
-const videoPath = path.join(__dirname, 'public', 'video.mp4');
+const videoPath = path.join(__dirname, 'public', `video_${quality}.mp4`);
 const fileSize = fs.statSync(videoPath).size;
 // Extract the range requested by the browser
 const range = req.headers.range;
@@ -24,4 +25,4 @@ const head = {
 res.writeHead(206, head);
 file.pipe(res);
 });
-app.listen(3000);
+app.listen(3001);
