@@ -1,3 +1,6 @@
+const express = require('express');
+const app = express();
+app.use(express.static('public'));
 const fs = require('fs');
 const path = require('path');
 app.get('/video', (req, res) => {
@@ -21,3 +24,4 @@ const head = {
 res.writeHead(206, head);
 file.pipe(res);
 });
+app.listen(3000);
